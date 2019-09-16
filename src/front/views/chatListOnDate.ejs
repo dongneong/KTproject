@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="css/chatList.css" />
+    <script type="text/javascript" src="js/chatList.js"></script>
+    <% var cnt=0;
+    if(arr.length != 0){
+        cnt = arr.length;
+    }
+    %>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row" id="all">
+            <div class="col col-md-2" id="left">
+                <div class="row" id="counselor">
+                    <div class="row" id="photo"><img src="static/KTlogo.png"></div>
+                    <div class="row" id="name"><div class="col-md-12 h5"><%=nickname%> 상담사</div></div>
+                </div>
+                <div class="row" id="calendar">
+                    <div class="col col-md-7" id="date"><input class="form-control" type="text" id="testDatepicker" placeholder="날짜검색"></div>
+                    <div class="col-md-5" id="dateButton"><button class="btn btn-primary" onclick="openChatListOnDate()">검색</button></div>
+                </div>
+                <div class="row">
+                        <div class="col col-md-12" id="customerCount">
+                            <div class="number">상담한 고객 수<br><div class="h2"><%=cnt%></div></div>
+                        </div>
+                    </div>
+                <div class="row" id="logout"><div class="col col-md-12"><button class="btn btn-danger" onclick="logout()">Logout</button></div></div>
+            </div>
+            <div class="col col-md-10" id="right">
+                <div class="row" id="top">
+                    <div class="col col-md-12">
+                        <div class="h2"><%=date%>일자 상담내역 <button class="btn btn-warning" id="gobackButton" onclick="goback();">Back</button></div>
+                    </div>
+                </div>
+                <div class="row" id="bottom">
+                    <div id="chats">
+                            <div class="row">
+                                <div class="col col-md-1 check title h5"></div>
+                                <div class="col col-md-2 name title h5">이름</div>
+                                <div class="col col-md-5 title h5">마지막 메시지</div>
+                                <div class="col col-md-3 title h5">채팅방 입장</div>
+                            </div>
+                            <hr>
+                        <%if(cnt !== 0){
+                            for(var i=0; i<cnt; i++){%>
+                        <div class="row">
+                            <div class="check" id="onDate"></div>                      
+                            <div class="col-md-2 text-truncate name"><%=arr[i].displayName%> 고객님</div>
+                            <div class="col col-md-5 text-truncate time2"><!----><%=arr[i].lastText%></div>
+                            <div class="col col-md-3 enter2"><button class="btn btn-dark" onclick="openChatRoomOnDate('<%= arr[i].userid%>', '<%=date%>')">입장</button></div>
+                        </div>
+                        <%}
+                    }%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form name="chatRoomOnDate" action="/chatRoomOnDate" method="post">
+        <input type="hidden" name="userid">
+        <input type="hidden" name="date">
+    </form>
+
+    <form name="chatListOnDate" action="/chatListOnDate" method="post">
+        <input type="hidden" name="date">
+    </form>
+
+    <form name="out" action="/logout" method="post"></form>
+</body>
+
+</html>

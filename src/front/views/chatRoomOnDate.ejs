@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title><%=title%></title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="js/chatRoom.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/chatRoom.css" />
+</head>
+
+<body>
+    <div class="container-fluid"> 
+        <div class="row align-items-center" id="top">
+            <div class="col-9 col-sm-3 col-md-5"><h3><%=nickname%> 고객님</h3></div>
+            <div class="col-3 col-sm-3 col-md-3"><button type="button" class="btn btn-success" id="finishButton" onclick="finish('<%=userid%>')">상담완료</button></div>
+        </div>
+        <div class="row align-items-center col-md-12" id="mid">
+            <div id="messageLogs">
+                <%if(arr.length !== 0) {%>
+                <div id="date"><%=date%></div>
+                <%for(var i=0; i<arr.length; i++){%>
+                <%if(arr[i].isUser == true){%>
+                    <div class="chat customerChat">
+                        <div id="customerChat"><%=arr[i].text%></div>
+                        <div id="customerTime"><%=arr[i].time%></div>
+                    </div>
+                <%}else{%>
+                    <div class="chat counselorChat">
+                        <div id="counselorChat"><%=arr[i].text%></div>
+                        <div id="counselorTime"><%=arr[i].time%></div>                        
+                    </div>
+                <%}%>
+                <% }} %>
+            </div>    
+        </div>
+        <div class="row align-items-center" id="bottom">
+            <div class="col-9"><textarea class="form-control" id="replyText"></textarea></div>
+            <div class="col-3"><button class="btn btn-dark" id="replyButton" onclick="reply()">전 송</button></div>
+        </div>
+
+        <form name="finished" action="/finishCounsel" method="post">
+            <input type="hidden" name="userid">
+        </form>
+
+        <form name="replyhook" action="/replyhook" method="post" target="empty">
+            <input type="hidden" name="text">
+            <input type="hidden" name="userid" value="<%=userid%>">
+        </form>
+    
+        <script>
+            $("#mid").scrollTop($("#mid")[0].scrollHeight);
+            $("#replyText").attr('disabled', true);
+            $("#replyButton").attr('disabled', true);
+            $("#finishButton").attr('disabled', true);
+        </script>
+        <iframe name="empty" style="width:0px; height:0px; display:none;"></iframe>
+    </div>
+</body>
+
+</html>

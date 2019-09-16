@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta chatset="utf-8">
+    <title>회원가입</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/signup.css">
+    <script type="text/javascript" src="js/signup.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" id="all">
+                <div class="form-group">
+                    <label for="inputID">ID</label>
+                    <input type="text" class="form-control" id="inputID" aria-describedby="helpID"
+                        placeholder="Enter your ID">
+                    <small id="helpID" class="form-text text-muted"><!--<span><button id="idCheckButton" class="btn btn-warning" onclick="checkID()">중복체크</button></span>--><span id="idSmallText">아이디를 입력하세요.</span></small>
+                    <!--<div id="idCheckButton"><button class="btn btn-warning" onclick="checkID()">중복체크</button></div>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="text" class="form-control" id="inputPassword" aria-describedby="helpPassword"
+                        placeholder="Enter your Password">
+                    <small id="helpPassword" class="form-text text-muted">영문, 숫자, 특수문자 혼합을 권장합니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputNickname">Nickname</label>
+                    <input type="text" class="form-control" id="inputNickname" aria-describedby="helpNickname"
+                        placeholder="Enter your Nickname">
+                    <small id="helpNickname" class="form-text text-muted">사용하실 이름을 입력하세요.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputChannelSecret">Channel Secret</label>
+                    <input type="text" class="form-control" id="inputChannelSecret" aria-describedby="helpChannelSecret"
+                        placeholder="Enter your channel secret">
+                    <small id="helpChannelSecret" class="form-text text-muted">LINE Developer에서 발급받을 수 있습니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputChannelAccessToken">Channel Access Token</label>
+                    <input type="text" class="form-control" id="inputChannelAccessToken"
+                        aria-describedby="helpChannelAccessToken" placeholder="Enter your channel access token">
+                    <small id="helpChannelAccessToken" class="form-text text-muted">LINE Developer에서 발급받을 수
+                        있습니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputChannelId">Channel ID</label>
+                    <input type="text" class="form-control" id="inputChannelId"
+                        aria-describedby="helpChannelId" placeholder="Enter your channel ID">
+                    <small id="helpChannelId" class="form-text text-muted">LINE Developer에서 확인하실 수 있습니다.</small>
+                </div>
+
+                <div class="form-group" id="button">
+                    <button type="button" class="btn btn-primary" onclick="goSignup()">가입완료</button>
+                    <span id="signup"><button class="btn btn-info" onclick="goBack()">돌아가기</button></span>
+                </div>
+            </div>
+        </div>
+
+        <form name="signup" action="/signup" method="post">
+            <input type="hidden" name="id">
+            <input type="hidden" name="password">
+            <input type="hidden" name="nickname">
+            <input type="hidden" name="channelSecret">
+            <input type="hidden" name="channelAccessToken">
+            <input type="hidden" name="channelId">
+        </form>
+
+        <form name="checkID2" action="/checkID" method="post" target="empty"></form>
+        <iframe name="empty" style="width:0px; height:0px; display:none;"></iframe>
+    </div>
+</body>
+
+</html>
