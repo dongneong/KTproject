@@ -15,7 +15,7 @@
     "connect-mongodb-session": "^2.2.0",
     "date-utils": "^1.2.21",
     "ejs": "^2.6.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-session": "^1.16.2",
     "helmet": "^3.20.0",
     "moment": "^2.24.0",
